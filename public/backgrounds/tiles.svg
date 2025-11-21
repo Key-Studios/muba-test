@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <!-- Piso azulejos -->
+  <rect x="0" y="0" width="1200" height="800" fill="#F0F0F0"/>
+  <!-- Patrón de azulejos -->
+  <defs>
+    <pattern id="tiles" width="60" height="60" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="60" height="60" fill="#E8E8E8" stroke="#999" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="800" fill="url(#tiles)" />
+  <!-- Marco de paredes -->
+  <rect x="10" y="10" width="1180" height="780" fill="none" stroke="#999" stroke-width="3"/>
+</svg>

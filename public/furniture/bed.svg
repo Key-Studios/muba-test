@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 180" width="200" height="180">
+  <!-- Mattress -->
+  <rect x="20" y="30" width="160" height="130" fill="#4A90E2" stroke="#2E5C8A" stroke-width="2" rx="5"/>
+  <!-- Pillow -->
+  <ellipse cx="60" cy="35" rx="25" ry="15" fill="#E0E0E0" stroke="#999" stroke-width="1"/>
+  <!-- Bed frame bottom -->
+  <rect x="15" y="160" width="170" height="15" fill="#654321" stroke="#3D2817" stroke-width="1.5" rx="2"/>
+  <!-- Left leg -->
+  <rect x="25" y="175" width="8" height="5" fill="#3D2817" rx="1"/>
+  <!-- Right leg -->
+  <rect x="167" y="175" width="8" height="5" fill="#3D2817" rx="1"/>
+</svg>

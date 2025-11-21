@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <!-- Piso madera clara -->
+  <rect x="0" y="0" width="1200" height="800" fill="#D4A574"/>
+  <!-- Patrón de madera -->
+  <defs>
+    <pattern id="wood" width="80" height="40" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="80" height="40" fill="#D4A574"/>
+      <rect x="0" y="0" width="80" height="2" fill="#B8956A"/>
+      <rect x="0" y="20" width="80" height="2" fill="#B8956A"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="800" fill="url(#wood)" />
+  <!-- Marco de paredes -->
+  <rect x="10" y="10" width="1180" height="780" fill="none" stroke="#8B7355" stroke-width="3"/>
+</svg>
