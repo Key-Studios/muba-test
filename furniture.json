@@ -1,0 +1,140 @@
+{
+  "categories": [
+    {
+      "id": "sala",
+      "name": "Sala",
+      "furniture": [
+        {
+          "id": "play-roundy-table",
+          "name": "Mesa Roundy",
+          "image": "/furniture/STEP6/PLAY-ROUNDY-TABLE.png",
+          "width": 120,
+          "height": 120
+        },
+        {
+          "id": "play-square-table",
+          "name": "Mesa Square",
+          "image": "/furniture/STEP6/PLAY-SQUARE-TABLE.png",
+          "width": 120,
+          "height": 120
+        },
+        {
+          "id": "cubic-seat",
+          "name": "Asiento Cúbico",
+          "image": "/furniture/STEP6/CUBIC-SEAT.png",
+          "width": 80,
+          "height": 80
+        }
+      ]
+    },
+    {
+      "id": "comedor",
+      "name": "Comedor",
+      "furniture": [
+        {
+          "id": "play-bespoke-table",
+          "name": "Mesa Bespoke",
+          "image": "/furniture/STEP6/PLAY-BESPOKE-TABLE.png",
+          "width": 140,
+          "height": 100
+        },
+        {
+          "id": "low-unit-01",
+          "name": "Unidad Baja 1",
+          "image": "/furniture/STEP6/LOW-UNIT-01.png",
+          "width": 130,
+          "height": 70
+        },
+        {
+          "id": "low-unit-02",
+          "name": "Unidad Baja 2",
+          "image": "/furniture/STEP6/LOW-UNIT-02.png",
+          "width": 130,
+          "height": 70
+        }
+      ]
+    },
+    {
+      "id": "habitacion",
+      "name": "Habitación",
+      "furniture": [
+        {
+          "id": "guest-bed",
+          "name": "Cama de Huéspedes",
+          "image": "/furniture/STEP5/GUEST-BED.png",
+          "width": 140,
+          "height": 160
+        },
+        {
+          "id": "bedside-table-01",
+          "name": "Mesita de Noche 1",
+          "image": "/furniture/STEP6/BEDSIDE-TABLE-01.png",
+          "width": 70,
+          "height": 70
+        },
+        {
+          "id": "bedside-table-02",
+          "name": "Mesita de Noche 2",
+          "image": "/furniture/STEP6/BEDSIDE-TABLE-02.png",
+          "width": 70,
+          "height": 70
+        },
+        {
+          "id": "bespoke-desk-01",
+          "name": "Escritorio 1",
+          "image": "/furniture/STEP6/BESPOKE-DESK-01.png",
+          "width": 110,
+          "height": 80
+        },
+        {
+          "id": "bespoke-desk-02",
+          "name": "Escritorio 2",
+          "image": "/furniture/STEP6/BESPOKE-DESK-02.png",
+          "width": 110,
+          "height": 80
+        }
+      ]
+    },
+    {
+      "id": "almacenamiento",
+      "name": "Almacenamiento",
+      "furniture": [
+        {
+          "id": "closet-1-door",
+          "name": "Armario 1 Puerta",
+          "image": "/furniture/STEP9/CLOSET-1-DOOR.png",
+          "width": 95,
+          "height": 160
+        },
+        {
+          "id": "closet-2-doors",
+          "name": "Armario 2 Puertas",
+          "image": "/furniture/STEP9/CLOSET-2-DOORS.png",
+          "width": 130,
+          "height": 160
+        },
+        {
+          "id": "closet-3-doors",
+          "name": "Armario 3 Puertas",
+          "image": "/furniture/STEP9/CLOSET-3-DOORS.png",
+          "width": 160,
+          "height": 160
+        },
+        {
+          "id": "chest-of-drawers",
+          "name": "Cómoda",
+          "image": "/furniture/STEP8/CHEST-OF-DRAWERS.png",
+          "width": 110,
+          "height": 95
+        },
+        {
+          "id": "bookshelf",
+          "name": "Estantería",
+          "image": "/furniture/STEP5/BOOKSHELF.png",
+          "width": 110,
+          "height": 140
+        }
+      ]
+    }
+  ]
+}

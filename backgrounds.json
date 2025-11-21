@@ -1,0 +1,39 @@
+{
+  "backgrounds": [
+    {
+      "id": "grid",
+      "name": "Grid",
+      "image": "/backgrounds/grid.svg",
+      "width": 1200,
+      "height": 800
+    },
+    {
+      "id": "wood",
+      "name": "Madera",
+      "image": "/backgrounds/wood.svg",
+      "width": 1200,
+      "height": 800
+    },
+    {
+      "id": "tiles",
+      "name": "Azulejos",
+      "image": "/backgrounds/tiles.svg",
+      "width": 1200,
+      "height": 800
+    },
+    {
+      "id": "concrete",
+      "name": "Cemento",
+      "image": "/backgrounds/concrete.svg",
+      "width": 1200,
+      "height": 800
+    },
+      {
+      "id": "green",
+      "name": "Verde Pastel",
+      "image": "/backgrounds/green.jpg",
+      "width": 1200,
+      "height": 800
+    }
+  ]
+}

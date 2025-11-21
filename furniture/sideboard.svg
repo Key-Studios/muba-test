@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60" width="160" height="60">
+  <!-- Sideboard body -->
+  <rect x="10" y="15" width="140" height="40" fill="#8B7355" stroke="#5C4A3D" stroke-width="2" rx="3"/>
+  <!-- Door 1 -->
+  <rect x="20" y="20" width="40" height="30" fill="#A0826D" stroke="#5C4A3D" stroke-width="1" rx="2"/>
+  <!-- Door 2 -->
+  <rect x="65" y="20" width="40" height="30" fill="#A0826D" stroke="#5C4A3D" stroke-width="1" rx="2"/>
+  <!-- Door 3 -->
+  <rect x="110" y="20" width="30" height="30" fill="#A0826D" stroke="#5C4A3D" stroke-width="1" rx="2"/>
+  <!-- Knobs -->
+  <circle cx="55" cy="35" r="2" fill="#C0C0C0"/>
+  <circle cx="100" cy="35" r="2" fill="#C0C0C0"/>
+  <circle cx="140" cy="35" r="2" fill="#C0C0C0"/>
+</svg>

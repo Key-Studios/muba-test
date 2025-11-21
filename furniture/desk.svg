@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 80" width="140" height="80">
+  <!-- Desktop surface -->
+  <rect x="10" y="25" width="120" height="8" fill="#9D8B7E" stroke="#5C4A3D" stroke-width="1.5" rx="1"/>
+  <!-- Left pedestal -->
+  <rect x="15" y="33" width="20" height="40" fill="#654321" stroke="#3D2817" stroke-width="1" rx="2"/>
+  <!-- Right pedestal -->
+  <rect x="105" y="33" width="20" height="40" fill="#654321" stroke="#3D2817" stroke-width="1" rx="2"/>
+  <!-- Drawer on left -->
+  <rect x="17" y="45" width="16" height="12" fill="#8B5A2B" stroke="#5C3A1F" stroke-width="0.5"/>
+</svg>
