@@ -94,7 +94,7 @@ const FurnitureItem = React.memo(
     };
 
     return (
-      <>
+      <div className=''>
         <KonvaImage
           ref={imageRef}
           image={image}
@@ -141,7 +141,7 @@ const FurnitureItem = React.memo(
             onTransformEnd={handleTransformEnd}
           />
         )}
-      </>
+      </div>
     );
   }
 );
@@ -168,28 +168,34 @@ export const CanvasEditor = forwardRef(
     // We no longer mutate furniture coordinates when container/background resizes.
     // Furniture coordinates are kept in the logical background space.
     const backgroundScaleRef = useRef(1);
+    const [displayScale, setDisplayScale] = useState(1);
+    const [fitMode, setFitMode] = useState("contain"); // 'contain' or 'cover'
 
     const recomputeSizes = useCallback(() => {
       if (!containerRef.current) return;
       const containerWidth = containerRef.current.offsetWidth;
       const containerHeight = containerRef.current.offsetHeight;
-      const padding = 40;
-      const availableWidth = containerWidth - padding * 2;
-      const availableHeight = containerHeight - padding * 2;
-      if (backgroundImage) {
+      const padding = 8; // reduce padding to maximize visible area
+      const availableWidth = Math.max(16, containerWidth - padding * 2);
+      const availableHeight = Math.max(16, containerHeight - padding * 2);
+      if (backgroundImage && background) {
         const bgW = background.width;
         const bgH = background.height;
-        const scaleFactor = Math.min(
-          availableWidth / bgW,
-          availableHeight / bgH
-        );
+        // Choose scaling behaviour based on `fitMode` ('contain' to show whole image, 'cover' to fill)
+        const scaleFactor =
+          fitMode === "cover"
+            ? Math.max(availableWidth / bgW, availableHeight / bgH)
+            : Math.min(availableWidth / bgW, availableHeight / bgH);
         backgroundScaleRef.current = scaleFactor; // store display scale only
-        setCanvasSize({ width: bgW, height: bgH }); // keep logical size
+        setDisplayScale(scaleFactor);
+        // Keep logical size as original background so furniture coordinates remain consistent
+        setCanvasSize({ width: bgW, height: bgH });
       } else {
         backgroundScaleRef.current = 1;
+        setDisplayScale(1);
         setCanvasSize({ width: availableWidth, height: availableHeight });
       }
-    }, [backgroundImage, background]);
+    }, [backgroundImage, background, fitMode]);
 
     // Load background image
     useEffect(() => {
@@ -270,10 +276,9 @@ export const CanvasEditor = forwardRef(
 
     // Generate grid lines if enabled
     const baseSpacing = 50; // tamaño visual deseado de cada celda de la grilla (px)
-    // Ajuste: antes solo se dividía por 'scale'. Al cambiar el fondo cambia backgroundScaleRef.current
-    // provocando que las celdas se vieran más pequeñas (Stage se escalaba adicionalmente).
-    // Queremos que el tamaño visual permanezca estable, así que dividimos por el producto de ambos escalados.
-    const effectiveScale = scale * backgroundScaleRef.current;
+    // Ajuste: antes solo se dividía por 'scale'. Ahora combinamos el zoom `scale`
+    // con la escala de visualización `displayScale` para mantener el aspecto visual estable.
+    const effectiveScale = scale * displayScale;
     const gridSpacing =
       effectiveScale > 0 ? baseSpacing / effectiveScale : baseSpacing;
     const gridLines = [];
@@ -296,14 +301,27 @@ export const CanvasEditor = forwardRef(
           <p>Arrastra muebles • R = rotar • Supr = eliminar</p>
         </div>
 
+        {/* Fit mode toggle */}
+        <div className='absolute top-6 right-6 z-20'>
+          <button
+            onClick={() =>
+              setFitMode((f) => (f === "contain" ? "cover" : "contain"))
+            }
+            className='px-3 py-1.5 rounded-md border border-border bg-surface hover:bg-gray-100 text-xs shadow-sm'
+            title={`Fit mode: ${fitMode}`}
+          >
+            {fitMode === "contain" ? "Contain" : "Cover"}
+          </button>
+        </div>
+
         {/* Konva Stage */}
         <Stage
           ref={internalStageRef}
-          // Evitar doble escalado: mantenemos tamaño lógico y aplicamos backgroundScale en scale
+          // Evitar doble escalado: mantenemos tamaño lógico y aplicamos displayScale en scale
           width={canvasSize.width}
           height={canvasSize.height}
-          scaleX={scale * backgroundScaleRef.current}
-          scaleY={scale * backgroundScaleRef.current}
+          scaleX={scale * displayScale}
+          scaleY={scale * displayScale}
           draggable={isPanning}
           onMouseDown={handlePointerDown}
           onTouchStart={handlePointerDown}

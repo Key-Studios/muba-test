@@ -3,28 +3,47 @@
 @tailwind utilities;
 
 :root {
-  /* Escala de grises normalizada */
-  --color-bg: #ffffff;
-  --color-bg-muted: #f5f5f5;
+  /* Modern color palette */
+  --color-bg: #fafbfc;
+  --color-bg-muted: #f1f3f5;
   --color-surface: #ffffff;
-  --color-surface-alt: #f3f3f3;
-  --color-border: #d4d4d4;
-  --color-text: #2f2f2f;
-  --color-text-subtle: #6b6b6b;
-  --color-accent: #4b5563; /* gris medio para estados focus */
-  --color-accent-soft: #e5e7eb;
-  --color-danger: #dc2626;
-  --color-success: #16a34a;
-  --color-warn: #d97706;
-  /* Mantener nombres antiguos mapeados a grises para compatibilidad */
-  --color-pastel-blue: #e5e7eb;   /* gris claro */
-  --color-pastel-lilac: #d1d5db;  /* gris un poco más oscuro */
-  --color-pastel-green: #e5e7eb;
-  --color-pastel-peach: #e5e7eb;
-  --color-pastel-yellow: #e5e7eb;
-  --color-pastel-rose: #e5e7eb;
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  --color-surface-alt: #f8f9fa;
+  --color-surface-elevated: #ffffff;
+  --color-border: #e1e4e8;
+  --color-border-strong: #d0d7de;
+  --color-text: #1a1f2e;
+  --color-text-subtle: #6e7781;
+  --color-text-muted: #8c959f;
+  --color-accent: #6366f1;
+  --color-accent-soft: #eef2ff;
+  --color-accent-hover: #4f46e5;
+  --color-primary: #6366f1;
+  --color-primary-hover: #4f46e5;
+  --color-danger: #ef4444;
+  --color-danger-soft: #fee2e2;
+  --color-success: #10b981;
+  --color-success-soft: #d1fae5;
+  --color-warn: #f59e0b;
+  --color-warn-soft: #fef3c7;
+  /* Gradient colors */
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --gradient-soft: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  /* Compatibility colors */
+  --color-pastel-blue: #e0e7ff;
+  --color-pastel-lilac: #f3e8ff;
+  --color-pastel-green: #d1fae5;
+  --color-pastel-peach: #fed7aa;
+  --color-pastel-yellow: #fef3c7;
+  --color-pastel-rose: #fce7f3;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  line-height: 1.6;
   font-weight: 400;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -44,23 +63,59 @@ a {
 a:hover {
   color: var(--color-text);
 }
-/* Soft background gradient utility */
-/* Reemplazar gradiente por fondo neutro */
-.bg-soft-gradient { background: var(--color-surface-alt); }
+/* Modern gradient utilities */
+.bg-soft-gradient { 
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+}
 
-/* Card style */
+.bg-gradient-primary {
+  background: var(--gradient-primary);
+}
+
+.bg-gradient-accent {
+  background: var(--gradient-accent);
+}
+
+/* Card style with modern shadows */
 .card-base {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(30, 41, 59, 0.04), 0 4px 12px rgba(30, 41, 59, 0.06);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: var(--color-surface-alt); }
-::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 5px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-text-subtle); }
+.card-base:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-2px);
+}
+
+/* Glassmorphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Modern scrollbar styling */
+::-webkit-scrollbar { 
+  width: 8px; 
+  height: 8px;
+}
+::-webkit-scrollbar-track { 
+  background: var(--color-bg-muted); 
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb { 
+  background: var(--color-border-strong); 
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+::-webkit-scrollbar-thumb:hover { 
+  background: var(--color-text-subtle); 
+}
 
 html, body, #root {
   width: 100%;
@@ -69,17 +124,80 @@ html, body, #root {
   padding: 0;
 }
 
-/* Botones estandarizados sin gradientes */
+/* Modern button styles */
 .btn-base {
-  @apply text-text text-xs shadow border border-border transition rounded-full px-4 py-2 active:scale-95; 
-  background: var(--color-surface-alt);
+  @apply text-text text-sm font-medium shadow-md border border-border transition-all duration-200 rounded-xl px-5 py-2.5 active:scale-95 flex items-center gap-2; 
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
 }
-.btn-base:hover { background: var(--color-accent-soft); }
-.btn-primary,.btn-secondary,.btn-tertiary,.btn-scenes,.btn-export { background: var(--color-surface-alt); }
-.btn-primary:hover,.btn-secondary:hover,.btn-tertiary:hover,.btn-scenes:hover,.btn-export:hover { background: var(--color-accent-soft); }
 
-/* Variante móvil (más pequeñas */
-.btn-mobile { @apply text-[10px] rounded-lg px-3 py-2; }
+.btn-base:hover { 
+  background: var(--color-surface-alt);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  color: white;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #6a3d8f 100%);
+  color: white;
+}
+
+.btn-tertiary {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border: none;
+}
+
+.btn-tertiary:hover {
+  background: linear-gradient(135deg, #e081e8 0%, #e4465a 100%);
+  color: white;
+}
+
+.btn-scenes {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  border: none;
+}
+
+.btn-scenes:hover {
+  background: linear-gradient(135deg, #3d9be8 0%, #00d9e6 100%);
+  color: white;
+}
+
+.btn-export {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: white;
+  border: none;
+}
+
+.btn-export:hover {
+  background: linear-gradient(135deg, #2dd865 0%, #1ee6c4 100%);
+  color: white;
+}
+
+/* Mobile variant */
+.btn-mobile { 
+  @apply text-xs rounded-lg px-3 py-2 text-white;
+  box-shadow: var(--shadow-md);
+}
 
 h1 {
   font-size: 3.2em;

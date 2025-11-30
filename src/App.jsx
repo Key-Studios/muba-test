@@ -17,10 +17,9 @@ function App() {
   const [snapEnabled, setSnapEnabled] = useState(false);
   const [catalogHidden, setCatalogHidden] = useState(true);
   const [panels, setPanels] = useState({
-    toolbar: false,
-    catalog: false,
-    backgrounds: false,
-    scenes: false,
+    catalog: true, // Catálogo siempre abierto a la izquierda
+    backgrounds: false, // Fondos en toolbar, oculto por defecto
+    scenes: false, // Escenas en toolbar, oculto por defecto
   });
   // Auto-save debounce
   const saveTimerRef = useRef(null);
@@ -202,9 +201,9 @@ function App() {
 
   if (loading) {
     return (
-      <div className='flex items-center justify-center h-screen bg-gray-100'>
+      <div className='flex items-center justify-center h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50'>
         <div className='text-center'>
-          <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4'></div>
+          <div className='animate-spin rounded-full h-16 w-16 border-4 border-indigo-200 mx-auto mb-4'></div>
           <p className='text-gray-600'>Cargando catálogo...</p>
         </div>
       </div>
@@ -214,146 +213,56 @@ function App() {
   const togglePanel = (key) => setPanels((p) => ({ ...p, [key]: !p[key] }));
 
   return (
-    <div className='relative h-screen w-screen overflow-hidden bg-surface'>
-      {/* Floating trigger buttons (desktop) */}
-      <div className='hidden sm:flex fixed top-3 left-1/2 -translate-x-1/2 z-50 flex-col items-center gap-2'>
-        <button
-          onClick={() => togglePanel("toolbar")}
-          className='btn-base btn-primary'
-        >
-          Toolbar
-        </button>
-      </div>
-      <div className='hidden sm:flex fixed top-1/2 right-3 -translate-y-1/2 z-50 flex-col gap-2'>
-        <button
-          onClick={() => togglePanel("catalog")}
-          className='btn-base btn-secondary'
-        >
-          Catálogo
-        </button>
-      </div>
-      <div className='hidden sm:flex fixed top-1/2 left-3 -translate-y-1/2 z-50 flex-col gap-2'>
-        <button
-          onClick={() => togglePanel("backgrounds")}
-          className='btn-base btn-tertiary'
-        >
-          Fondos
-        </button>
-      </div>
-      <div className='hidden sm:flex fixed bottom-3 left-1/2 -translate-x-1/2 z-50 flex-col gap-2'>
-        <button
-          onClick={() => togglePanel("scenes")}
-          className='btn-base btn-scenes'
-        >
-          Escenas
-        </button>
-        <button onClick={handleExport} className='btn-base btn-export'>
-          Exportar
-        </button>
+    <div className='h-screen w-screen overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex flex-col'>
+      {/* Toolbar fijo en la parte superior */}
+      <div className='flex-shrink-0 border-b border-border bg-white/80 backdrop-blur-xl shadow-sm z-30'>
+        <Toolbar
+          onExport={handleExport}
+          onZoomIn={zoomIn}
+          onZoomOut={zoomOut}
+          onZoomReset={zoomReset}
+          scale={activeScene ? activeScene.scale : 1}
+          showGrid={activeScene ? activeScene.showGrid : false}
+          onToggleGrid={toggleGrid}
+          isPanning={isPanning}
+          onTogglePan={togglePan}
+          snapEnabled={activeScene ? activeScene.snapEnabled : false}
+          onToggleSnap={toggleSnap}
+          scenes={scenes}
+          activeSceneId={activeSceneId}
+          onCreateScene={createScene}
+          onSelectScene={selectScene}
+          onRenameScene={renameScene}
+          onDeleteScene={deleteScene}
+          panels={panels}
+          onTogglePanel={togglePanel}
+          onSelectBackground={(bg) =>
+            activeScene && updateActiveScene({ background: bg })
+          }
+          currentBackground={activeScene ? activeScene.background : null}
+        />
       </div>
 
-      {/* Mobile clustered buttons */}
-      <div className='sm:hidden fixed bottom-4 right-4 z-50 w-40 h-40 pointer-events-none'>
-        <div className='relative w-full h-full'>
-          <button
-            onClick={() => togglePanel("toolbar")}
-            className='absolute top-0 left-0 btn-base btn-primary btn-mobile pointer-events-auto'
-          >
-            Toolbar
-          </button>
-          <button
-            onClick={() => togglePanel("catalog")}
-            className='absolute top-12 left-0 btn-base btn-secondary btn-mobile pointer-events-auto'
-          >
-            Catálogo
-          </button>
-          <button
-            onClick={() => togglePanel("backgrounds")}
-            className='absolute top-12 left-20 btn-base btn-tertiary btn-mobile pointer-events-auto'
-          >
-            Fondos
-          </button>
-          <button
-            onClick={() => togglePanel("scenes")}
-            className='absolute top-24 left-0 btn-base btn-scenes btn-mobile pointer-events-auto'
-          >
-            Escenas
-          </button>
-          <button
-            onClick={handleExport}
-            className='absolute top-24 left-20 btn-base btn-export btn-mobile pointer-events-auto'
-          >
-            Exportar
-          </button>
-        </div>
-      </div>
-
-      {/* Floating panels */}
-      {panels.catalog && (
-        <div className='fixed bottom-40 right-4 z-40 sm:bottom-auto sm:top-1/2 sm:right-20 sm:-translate-y-1/2'>
+      {/* Contenedor principal: catálogo izquierdo + canvas */}
+      <div className='flex-1 flex overflow-hidden relative'>
+        {/* Panel izquierdo: Catálogo de muebles (siempre visible) */}
+        <div className='flex-shrink-0 w-80 border-r border-border bg-white/80 backdrop-blur-xl shadow-sm z-20 overflow-y-auto'>
           <FurnitureCatalog
             categories={categories}
             onAddFurniture={() => {}}
             existingFurniture={activeScene ? activeScene.furniture.length : 0}
             hidden={false}
             onToggle={() => togglePanel("catalog")}
+            isEmbedded={true}
           />
         </div>
-      )}
-      {panels.toolbar && (
-        <div className='fixed bottom-[calc(40px+12rem)] right-4 z-40 w-[85vw] max-w-[420px] sm:bottom-auto sm:top-14 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:w-[900px] sm:max-w-[95vw]'>
-          <Toolbar
-            onExport={handleExport}
-            onZoomIn={zoomIn}
-            onZoomOut={zoomOut}
-            onZoomReset={zoomReset}
-            scale={activeScene ? activeScene.scale : 1}
-            showGrid={activeScene ? activeScene.showGrid : false}
-            onToggleGrid={toggleGrid}
-            isPanning={isPanning}
-            onTogglePan={togglePan}
-            snapEnabled={activeScene ? activeScene.snapEnabled : false}
-            onToggleSnap={toggleSnap}
-            scenes={scenes}
-            activeSceneId={activeSceneId}
-            onCreateScene={createScene}
-            onSelectScene={selectScene}
-            onRenameScene={renameScene}
-            onDeleteScene={deleteScene}
-          />
-        </div>
-      )}
-      {panels.backgrounds && (
-        <div className='fixed bottom-24 right-4 z-40 w-[85vw] max-w-[420px] sm:bottom-auto sm:top-1/2 sm:left-20 sm:right-auto sm:-translate-y-1/2 sm:w-[420px] sm:max-w-[90vw]'>
-          <BackgroundSelector
-            onSelectBackground={(bg) =>
-              activeScene && updateActiveScene({ background: bg })
-            }
-            currentBackground={activeScene ? activeScene.background : null}
-          />
-        </div>
-      )}
-      {panels.scenes && (
-        <div className='fixed bottom-60 right-4 z-40 sm:bottom-20 sm:left-1/2 sm:right-auto sm:-translate-x-1/2'>
-          <ScenesPanel
-            scenes={scenes}
-            activeSceneId={activeSceneId}
-            onCreate={createScene}
-            onSelect={selectScene}
-            onRename={renameScene}
-            onDelete={deleteScene}
-            onClose={() => togglePanel("scenes")}
-          />
-        </div>
-      )}
 
-      {/* Canvas area (designer) */}
-      <div
-        className='absolute inset-0 pt-0 flex items-end justify-center'
-        onDrop={handleCanvasDrop}
-        onDragOver={handleCanvasDragOver}
-      >
-        <div className='w-full h-full'>
+        {/* Canvas area - ocupa todo el espacio disponible */}
+        <div
+          className='flex-1 relative overflow-hidden'
+          onDrop={handleCanvasDrop}
+          onDragOver={handleCanvasDragOver}
+        >
           {activeScene && (
             <CanvasEditor
               furniture={activeScene.furniture}
@@ -368,6 +277,58 @@ function App() {
           )}
         </div>
       </div>
+
+      {/* Paneles desplegables desde el toolbar */}
+      {panels.backgrounds && (
+        <div className='absolute top-[73px] left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-border shadow-xl max-h-[60vh] overflow-y-auto'>
+          <div className='p-4'>
+            <div className='flex items-center justify-between mb-4'>
+              <h3 className='text-lg font-bold text-text'>Fondos</h3>
+              <button
+                onClick={() => togglePanel("backgrounds")}
+                className='w-8 h-8 rounded-lg bg-gray-100 hover:bg-gray-200 border border-border flex items-center justify-center transition-all'
+                title='Ocultar fondos'
+              >
+                <svg
+                  className='w-4 h-4'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={2}
+                    d='M6 18L18 6M6 6l12 12'
+                  />
+                </svg>
+              </button>
+            </div>
+            <BackgroundSelector
+              onSelectBackground={(bg) =>
+                activeScene && updateActiveScene({ background: bg })
+              }
+              currentBackground={activeScene ? activeScene.background : null}
+              isEmbedded={true}
+            />
+          </div>
+        </div>
+      )}
+
+      {panels.scenes && (
+        <div className='absolute top-[73px] left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-border shadow-xl max-h-[60vh] overflow-y-auto'>
+          <ScenesPanel
+            scenes={scenes}
+            activeSceneId={activeSceneId}
+            onCreate={createScene}
+            onSelect={selectScene}
+            onRename={renameScene}
+            onDelete={deleteScene}
+            onClose={() => togglePanel("scenes")}
+            isEmbedded={true}
+          />
+        </div>
+      )}
     </div>
   );
 }
