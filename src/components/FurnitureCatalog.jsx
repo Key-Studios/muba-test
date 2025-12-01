@@ -67,7 +67,7 @@ export const FurnitureCatalog = ({
   );
 
   return (
-    <div className={`${isEmbedded ? 'h-full' : 'w-80 max-h-[85vh]'} flex flex-col overflow-hidden relative ${!isEmbedded ? 'glass border border-border rounded-2xl shadow-2xl backdrop-blur-xl' : ''}`}>
+    <div className={`${isEmbedded ? 'h-full' : 'w-80 max-h-[85vh]'} flex flex-col overflow-hidden relative ${!isEmbedded ? 'glass border border-border rounded-2xl shadow-2xl backdrop-blur-xl' : ''} w-full md:w-80`}>
       {!isEmbedded && (
         <button
           onClick={onToggle}
